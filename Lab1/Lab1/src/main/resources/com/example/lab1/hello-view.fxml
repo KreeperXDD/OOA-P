@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
@@ -10,24 +7,24 @@
 <VBox alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.lab1.HelloController">
 
-  <GridPane fx:id="grid" gridLinesVisible="true" alignment="CENTER">
-    <Pane GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-border-color: black; -fx-background-color: lightgreen;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-border-color: black; -fx-background-color: green;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="0" GridPane.columnIndex="2" style="-fx-border-color: black; -fx-background-color: lightgreen;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="0" GridPane.columnIndex="3" style="-fx-border-color: black; -fx-background-color: green;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="0" GridPane.columnIndex="4" style="-fx-border-color: black; -fx-background-color: lightgreen;" prefWidth="50" prefHeight="50"/>
+  <GridPane fx:id="grid" gridLinesVisible="true" alignment="CENTER" stylesheets="@css/style.css">
+    <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Pane styleClass="pane1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+    <Pane styleClass="pane1" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+    <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
 
-    <Pane GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-border-color: black; -fx-background-color: green;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-border-color: black; -fx-background-color: lightgreen;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="1" GridPane.columnIndex="2" style="-fx-border-color: black; -fx-background-color: green;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="1" GridPane.columnIndex="3" style="-fx-border-color: black; -fx-background-color: lightgreen;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="1" GridPane.columnIndex="4" style="-fx-border-color: black; -fx-background-color: green;" prefWidth="50" prefHeight="50"/>
+    <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <Pane styleClass="pane0" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+    <Pane styleClass="pane0" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+    <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
 
-    <Pane GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-border-color: black; -fx-background-color: lightgreen;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-border-color: black; -fx-background-color: green;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="2" GridPane.columnIndex="2" style="-fx-border-color: black; -fx-background-color: lightgreen;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="2" GridPane.columnIndex="3" style="-fx-border-color: black; -fx-background-color: green;" prefWidth="50" prefHeight="50"/>
-    <Pane GridPane.rowIndex="2" GridPane.columnIndex="4" style="-fx-border-color: black; -fx-background-color: lightgreen;" prefWidth="50" prefHeight="50"/>
+    <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <Pane styleClass="pane1" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+    <Pane styleClass="pane1" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+    <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
   </GridPane>
 
   <Button text="Создать" onAction="#onHelloButtonClick"/>

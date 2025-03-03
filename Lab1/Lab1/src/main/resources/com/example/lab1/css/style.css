@@ -1,0 +1,12 @@
+.pane1 {
+    -fx-border-color: black;
+    -fx-background-image: url('border1.png');
+    -fx-pref-width: 64;
+    -fx-pref-height: 64;
+}
+.pane0 {
+    -fx-border-color: black;
+    -fx-background-image: url('border2.png');
+    -fx-pref-width: 64;
+    -fx-pref-height: 64;
+}
