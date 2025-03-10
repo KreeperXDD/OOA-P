@@ -10,3 +10,7 @@
     -fx-pref-width: 64;
     -fx-pref-height: 64;
 }
+.paneBase {
+    -fx-background-color: #6a3939;
+    -fx-border-color: black;
+}

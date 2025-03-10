@@ -11,7 +11,7 @@ public class TowerFactory implements IFactory<ITower>
     private final Random rand = new Random();
 
     @Override
-    public ITower create()
+    public ITower Create()
     {
         int x = rand.nextInt(3);
         return switch (x)

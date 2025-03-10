@@ -6,26 +6,31 @@
 <?import javafx.scene.layout.Pane?>
 <VBox alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.lab1.HelloController">
+  <Pane fx:id="playField"
+        prefHeight="500" prefWidth="500"
+        styleClass="paneBase">
+    <GridPane fx:id="grid"
+              layoutX="90" layoutY="100"
+              gridLinesVisible="true" alignment="CENTER" stylesheets="@css/style.css">
+      <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+      <Pane styleClass="pane1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+      <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+      <Pane styleClass="pane1" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+      <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
 
-  <GridPane fx:id="grid" gridLinesVisible="true" alignment="CENTER" stylesheets="@css/style.css">
-    <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-    <Pane styleClass="pane1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-    <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-    <Pane styleClass="pane1" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-    <Pane styleClass="pane0" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+      <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+      <Pane styleClass="pane0" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+      <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+      <Pane styleClass="pane0" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+      <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
 
-    <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <Pane styleClass="pane0" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-    <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-    <Pane styleClass="pane0" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-    <Pane styleClass="pane1" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
-
-    <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-    <Pane styleClass="pane1" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-    <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-    <Pane styleClass="pane1" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-    <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
-  </GridPane>
+      <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+      <Pane styleClass="pane1" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+      <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+      <Pane styleClass="pane1" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+      <Pane styleClass="pane0" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
+    </GridPane>
+  </Pane>
 
   <Button text="Создать" onAction="#onHelloButtonClick"/>
 </VBox>
