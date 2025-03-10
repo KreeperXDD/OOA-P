@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <VBox alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.lab1.HelloController">
+      fx:controller="com.example.lab1.TowerDefence">
   <Pane fx:id="playField"
         prefHeight="500" prefWidth="500"
         styleClass="paneBase">
@@ -32,5 +32,5 @@
     </GridPane>
   </Pane>
 
-  <Button text="Создать" onAction="#onHelloButtonClick"/>
+  <Button text="Создать" onAction="#onStartButtonClick"/>
 </VBox>

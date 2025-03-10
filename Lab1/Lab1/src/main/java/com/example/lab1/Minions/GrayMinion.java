@@ -4,7 +4,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.net.URL;
 
-public class GrayMinion  implements IMinion {
+public class GrayMinion  implements IMinion
+{
     @Override
     public ImageView getImageView()
     {

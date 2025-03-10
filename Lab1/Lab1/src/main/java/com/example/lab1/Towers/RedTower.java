@@ -1,7 +1,10 @@
 package com.example.lab1.Towers;
 
+import com.example.lab1.Bullets.Bullet;
+import com.example.lab1.Bullets.IBullet;
 import com.example.lab1.Factories.BulletFactory;
 import com.example.lab1.Minions.IMinion;
+import com.example.lab1.SimplePool.SimplePool;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
@@ -17,13 +20,14 @@ public class RedTower implements ITower
     private final double bulletSpeed;
     private final ImageView imageView;
     private final BulletFactory bulletFactory;
+    private final SimplePool<IBullet> bulletPool = new SimplePool<>(Bullet::new, 0);
 
     public RedTower()
     {
         URL resourceUrl = getClass().getResource("/png/tower2.png");
         Image image = new Image(resourceUrl.toExternalForm());
 
-        this.range = 1000;
+        this.range = 200;
         this.bulletSpeed = 150;
         this.imageView = new ImageView(image);
         this.bulletFactory = new BulletFactory();
@@ -35,6 +39,10 @@ public class RedTower implements ITower
         System.out.print("Я выстрелил");
         var bullet = bulletFactory.Create();
         ImageView bulletView = bullet.getImageView();
+
+//        IBullet bullet = bulletPool.Get();
+//        bullet.getImageView().setVisible(true);
+//        ImageView bulletView = bullet.getImageView();
 
         pane.getChildren().add(bulletView);
 
@@ -65,6 +73,9 @@ public class RedTower implements ITower
         transition.setOnFinished(event -> {
             pane.getChildren().remove(bulletView);
             bulletFactory.ReturnBullet(bullet);
+
+//            bullet.getImageView().setVisible(false);
+//            bulletPool.ReturnToPool(bullet);
 
             pane.getChildren().remove(minion.getImageView());
         });

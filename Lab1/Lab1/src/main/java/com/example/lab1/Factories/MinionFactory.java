@@ -22,8 +22,6 @@ public class MinionFactory implements IFactory<IMinion> {
 
     public void ReturnMinion(IMinion minion) {
         minion.getImageView().setVisible(false);
-//        minion.getImageView().setLayoutX(0);
-//        minion.getImageView().setLayoutY(0);
         minionPool.ReturnToPool(minion);
     }
 
