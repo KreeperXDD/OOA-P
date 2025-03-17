@@ -7,10 +7,18 @@ import java.net.URL;
 
 public class Bullet implements IBullet{
 
-    @Override
-    public ImageView getImageView() {
+    private final ImageView imageView;
+
+    public Bullet(){
         URL resourceUrl = getClass().getResource("/png/bullet.png");
         Image image = new Image(resourceUrl.toExternalForm());
-        return new ImageView(image);
+        this.imageView = new ImageView(image);
+        imageView.setFitHeight(15);
+        imageView.setFitWidth(15);
+    }
+
+    @Override
+    public ImageView getImageView() {
+        return imageView;
     }
 }

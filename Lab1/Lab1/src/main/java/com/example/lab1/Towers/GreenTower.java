@@ -18,7 +18,7 @@ public class GreenTower implements ITower
     }
 
     @Override
-    public ImageView getImage() {
+    public ImageView getImageView() {
         URL resourceUrl = getClass().getResource("/png/tower1.png");
         Image image = new Image(resourceUrl.toExternalForm());
         return new ImageView(image);

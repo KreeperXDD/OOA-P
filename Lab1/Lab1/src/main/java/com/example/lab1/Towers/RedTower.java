@@ -1,12 +1,11 @@
 package com.example.lab1.Towers;
 
-import com.example.lab1.Bullets.Bullet;
-import com.example.lab1.Bullets.IBullet;
 import com.example.lab1.Factories.BulletFactory;
 import com.example.lab1.Minions.IMinion;
-import com.example.lab1.SimplePool.SimplePool;
+import com.example.lab1.NodeUtils;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -20,14 +19,13 @@ public class RedTower implements ITower
     private final double bulletSpeed;
     private final ImageView imageView;
     private final BulletFactory bulletFactory;
-    private final SimplePool<IBullet> bulletPool = new SimplePool<>(Bullet::new, 0);
 
     public RedTower()
     {
         URL resourceUrl = getClass().getResource("/png/tower2.png");
         Image image = new Image(resourceUrl.toExternalForm());
 
-        this.range = 200;
+        this.range = 600;
         this.bulletSpeed = 150;
         this.imageView = new ImageView(image);
         this.bulletFactory = new BulletFactory();
@@ -36,31 +34,18 @@ public class RedTower implements ITower
     @Override
     public void Shoot(IMinion minion, Pane pane) {
 
-        System.out.print("Я выстрелил");
         var bullet = bulletFactory.Create();
         ImageView bulletView = bullet.getImageView();
-
-//        IBullet bullet = bulletPool.Get();
-//        bullet.getImageView().setVisible(true);
-//        ImageView bulletView = bullet.getImageView();
-
         pane.getChildren().add(bulletView);
 
-        Bounds towerBounds = imageView.localToScene(imageView.getBoundsInLocal());
-        Bounds playFieldBounds = pane.localToScene(pane.getBoundsInLocal());
+        Point2D towerCenter = NodeUtils.GetCenter(pane, imageView);
+        Point2D minionCenter = NodeUtils.GetCenter(pane, minion.getImageView());
 
-        double towerX = towerBounds.getMinX() - playFieldBounds.getMinX() + towerBounds.getWidth() / 2;
-        double towerY = towerBounds.getMinY() - playFieldBounds.getMinY() + towerBounds.getHeight() / 2;
+        bulletView.setLayoutX(towerCenter.getX());
+        bulletView.setLayoutY(towerCenter.getY());
 
-        Bounds minionBounds = minion.getImageView().localToScene(minion.getImageView().getBoundsInLocal());
-        double minionX = minionBounds.getMinX() - playFieldBounds.getMinX() + minionBounds.getWidth() / 2;
-        double minionY = minionBounds.getMinY() - playFieldBounds.getMinY() + minionBounds.getHeight() / 2;
-
-        bulletView.setLayoutX(towerX);
-        bulletView.setLayoutY(towerY);
-
-        double dx = towerX - minionX;
-        double dy = towerY - minionY;
+        double dx = minionCenter.getX() - towerCenter.getX();
+        double dy = minionCenter.getY() - towerCenter.getY();
         double distance = Math.sqrt(dx * dx + dy * dy);
         double time = distance /bulletSpeed;
 
@@ -73,10 +58,6 @@ public class RedTower implements ITower
         transition.setOnFinished(event -> {
             pane.getChildren().remove(bulletView);
             bulletFactory.ReturnBullet(bullet);
-
-//            bullet.getImageView().setVisible(false);
-//            bulletPool.ReturnToPool(bullet);
-
             pane.getChildren().remove(minion.getImageView());
         });
 
@@ -84,7 +65,7 @@ public class RedTower implements ITower
     }
 
     @Override
-    public ImageView getImage() {
+    public ImageView getImageView() {
         return imageView;
     }
 
