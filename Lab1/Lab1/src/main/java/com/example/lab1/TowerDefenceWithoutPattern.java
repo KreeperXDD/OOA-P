@@ -11,6 +11,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -74,19 +75,13 @@ public class TowerDefenceWithoutPattern {
         }
     }
 
-    private boolean IsMinionInRange(ITower tower, IMinion minion) {
-        Bounds towerBounds = tower.getImageView().localToScene(tower.getImageView().getBoundsInLocal());
-        Bounds fieldBounds = playField.localToScene(playField.getBoundsInLocal());
+    private boolean IsMinionInRange(ITower tower, IMinion minion)
+    {
+        Point2D towerCenter = NodeUtils.GetCenter(playField, tower.getImageView());
+        Point2D minionCenter = NodeUtils.GetCenter(playField, minion.getImageView());
 
-        double towerX = towerBounds.getMinX() - fieldBounds.getMinX() + towerBounds.getWidth()/2;
-        double towerY = towerBounds.getMinY() - fieldBounds.getMinY() + towerBounds.getHeight()/2;
-
-        Bounds minionBounds = minion.getImageView().localToScene(minion.getImageView().getBoundsInLocal());
-        double minionX = minionBounds.getMinX() - fieldBounds.getMinX() + minionBounds.getWidth()/2;
-        double minionY = minionBounds.getMinY() - fieldBounds.getMinY() + minionBounds.getHeight()/2;
-
-        double dx = towerX - minionX;
-        double dy = towerY - minionY;
+        double dx = minionCenter.getX() - towerCenter.getX();
+        double dy = minionCenter.getY() - towerCenter.getY();
         double distance = Math.sqrt(dx*dx + dy*dy);
 
         return distance <= tower.getRange();
