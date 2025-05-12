@@ -17,9 +17,10 @@
     <Label text="Структура дерева:" />
     <TreeView fx:id="treeView" prefHeight="250"/>
 
-    <Button text="Следующий элемент" onAction="#onNextClicked"/>
+    <Button text="Начать обход" onAction="#onTraverseClicked"/>
     <Button text="Сброс" onAction="#onResetClicked"/>
 
     <Label text="История обхода:" />
     <TextArea fx:id="historyArea" prefHeight="150" editable="false"/>
+
 </VBox>

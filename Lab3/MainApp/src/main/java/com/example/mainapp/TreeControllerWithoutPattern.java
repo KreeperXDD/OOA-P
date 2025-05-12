@@ -1,10 +1,5 @@
 package com.example.mainapp;
 
-import com.example.mainapp.Iterator.BFSTreeIterator;
-import com.example.mainapp.Iterator.DFSTreeIterator;
-import com.example.mainapp.Iterator.IIterator;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,32 +8,28 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class TreeController {
-
-    @FXML private TreeView<String> treeView;
+public class TreeControllerWithoutPattern {
+    @FXML
+    private TreeView<String> treeView;
     @FXML private TextArea historyArea;
     @FXML private ComboBox<String> iteratorTypeBox;
 
     private Node root;
-    private IIterator<Node> iterator;
-    private final List<Node> history = new ArrayList<>();   
+    private final List<Node> history = new ArrayList<>();
     private final Map<Node, TreeItem<String>> nodeToTreeItemMap = new HashMap<>();
     private final Map<TreeItem<String>, Node> treeItemToNodeMap = new HashMap<>();
+    private String currentTraversalType = "DFS (поиск в глубину)";
 
     @FXML
     private void initialize() {
         iteratorTypeBox.getItems().addAll("DFS (поиск в глубину)", "BFS (поиск в ширину)");
         iteratorTypeBox.getSelectionModel().selectFirst();
-        iteratorTypeBox.setOnAction(event -> ResetIterator());
+        iteratorTypeBox.setOnAction(event -> currentTraversalType = iteratorTypeBox.getValue());
 
         LoadFileSystemTree();
     }
@@ -51,7 +42,6 @@ public class TreeController {
                 root = fileSystemRoot;
                 treeView.setRoot(BuildTreeItem(root));
                 treeView.getRoot().setExpanded(true);
-                SetIteratorBySelection();
                 historyArea.clear();
             });
         }).start();
@@ -61,7 +51,6 @@ public class TreeController {
         TreeItem<String> item = new TreeItem<>(node.GetName());
         item.setExpanded(false);
 
-        // Добавляем в обе карты
         nodeToTreeItemMap.put(node, item);
         treeItemToNodeMap.put(item, node);
 
@@ -86,27 +75,51 @@ public class TreeController {
         return node;
     }
 
-    private void SetIteratorBySelection() {
-        String selected = iteratorTypeBox.getSelectionModel().getSelectedItem();
-        iterator = "BFS (поиск в ширину)".equals(selected)
-                ? new BFSTreeIterator(root)
-                : new DFSTreeIterator(root);
-        ResetIterator();
-    }
-
     @FXML
     private void onTraverseClicked(ActionEvent event) {
-        if (iterator == null) return;
+        if (root == null) return;
 
-        List<Node> traversalOrder = new ArrayList<>();
-        while (iterator.HasNext()) {
-            traversalOrder.add(iterator.Next());
+        List<Node> traversalOrder;
+        if ("BFS (поиск в ширину)".equals(currentTraversalType)) {
+            traversalOrder = performBFS(root);
+        } else {
+            traversalOrder = performDFS(root);
         }
 
         ShowVisualizationWindow(traversalOrder);
 
         history.clear();
         traversalOrder.forEach(this::ProcessNode);
+    }
+
+    private List<Node> performBFS(Node root) {
+        List<Node> result = new ArrayList<>();
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+            result.add(current);
+            queue.addAll(current.GetChildren());
+        }
+        return result;
+    }
+
+    private List<Node> performDFS(Node root) {
+        List<Node> result = new ArrayList<>();
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            Node current = stack.pop();
+            result.add(current);
+            List<Node> children = current.GetChildren();
+            Collections.reverse(children); // Для сохранения порядка посещения
+            for (Node child : children) {
+                stack.push(child);
+            }
+        }
+        return result;
     }
 
     private void ProcessNode(Node node) {
@@ -145,8 +158,6 @@ public class TreeController {
                 } else {
                     setText(item);
                     TreeItem<String> ti = getTreeItem();
-
-                    // Используем обратную карту
                     if (ti != null && history.contains(treeItemToNodeMap.get(ti))) {
                         setStyle("-fx-background-color: #e0f7fa; -fx-font-weight: bold;");
                     } else {
@@ -159,11 +170,10 @@ public class TreeController {
 
     @FXML
     private void onResetClicked(ActionEvent event) {
-        ResetIterator();
+        ResetTraversal();
     }
 
-    private void ResetIterator() {
-        if (iterator != null) iterator.Reset();
+    private void ResetTraversal() {
         history.clear();
         UpdateHistory();
         nodeToTreeItemMap.values().forEach(item -> item.setExpanded(false));
